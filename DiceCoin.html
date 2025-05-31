@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="DiceCoin (DICE) is a Solana-based utility gaming token for multi-platform dice betting games, rewards, and exchange trading." />
+<meta name="keywords" content="DiceCoin, DICE, Solana token, gaming token, dice game, crypto token, blockchain gaming" />
+<meta name="author" content="DiceCoin Team" />
+<title>DiceCoin (DICE) - Utility Gaming Token on Solana</title>
+<link rel="icon" href="https://arweave.net/TblxZpwSFSzp62LX_ULvTMTUsVXdGncVHJJYp50zTd8" type="image/png" />
+<style>
+  /* Reset & basics */
+  * {
+    box-sizing: border-box;
+    margin: 0; padding: 0;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.4s, color 0.4s;
+  }
+  :root {
+    --bg: #0f111a;
+    --text: #eee;
+    --primary: #4ade80;
+    --secondary: #a5f3fc;
+    --card-bg: #1f2238;
+    --shadow: #2ecc7188;
+    --hover-bg: #4ade80;
+    --hover-text: #0f111a;
+  }
+  [data-theme="light"] {
+    --bg: #f4f7f9;
+    --text: #222;
+    --primary: #22c55e;
+    --secondary: #0ea5e9;
+    --card-bg: #ffffff;
+    --shadow: #22c55e88;
+    --hover-bg: #22c55e;
+    --hover-text: #fff;
+  }
+
+  /* Navbar */
+  nav {
+    position: sticky;
+    top: 0;
+    background: var(--card-bg);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+  }
+  nav .logo {
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: var(--primary);
+    letter-spacing: 1.2px;
+    cursor: pointer;
+    user-select: none;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 24px;
+  }
+  nav ul li a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  nav ul li a:hover,
+  nav ul li a:focus {
+    background-color: var(--hover-bg);
+    color: var(--hover-text);
+    outline: none;
+  }
+
+  /* Dark/Light toggle */
+  .theme-toggle {
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: var(--primary);
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    user-select: none;
+    transition: color 0.3s;
+  }
+  .theme-toggle:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  /* Hero */
+  .hero {
+    max-width: 1200px;
+    margin: 40px auto 60px;
+    padding: 0 20px;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s forwards;
+  }
+  .hero img {
+    max-width: 280px;
+    border-radius: 20px;
+    box-shadow: 0 0 25px var(--primary);
+  }
+  .hero-content {
+    max-width: 600px;
+  }
+  .hero-content h1 {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+  .hero-content h2 {
+    font-weight: 400;
+    color: var(--secondary);
+    margin-bottom: 20px;
+  }
+  .hero-content p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+
+  /* Sections */
+  .section {
+    max-width: 1000px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s forwards;
+  }
+  .section:nth-child(even) {
+    animation-delay: 0.3s;
+  }
+  .section:nth-child(odd) {
+    animation-delay: 0.6s;
+  }
+  h2.section-title {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 30px;
+    text-align: center;
+    letter-spacing: 1.3px;
+  }
+
+  /* Info Cards */
+  .info-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  .card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 0 15px var(--shadow);
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  .card:hover, .card:focus-within {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px var(--primary);
+  }
+  .card h3 {
+    margin-bottom: 12px;
+    color: var(--primary);
+    font-size: 1.4rem;
+  }
+  .card p {
+    font-size: 1.1rem;
+    word-break: break-word;
+  }
+
+  /* Tags */
+  .tags {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 60px;
+  }
+  .tag {
+    background: var(--primary);
+    color: var(--hover-text);
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-weight: 700;
+    user-select: none;
+    box-shadow: 0 0 10px var(--primary);
+    font-size: 1rem;
+    transition: background-color 0.3s;
+  }
+  .tag:hover, .tag:focus {
+    background-color: var(--hover-bg);
+    cursor: default;
+    outline: none;
+  }
+
+  /* Roadmap */
+  .roadmap {
+    padding-left: 30px;
+    margin-left: 15px;
+  }
+  .timeline {
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary);
+    border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 36px;
+    padding-left: 30px;
+  }
+  .timeline-item:last-child {
+    margin-bottom: 0;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    background: var(--bg);
+    border: 4px solid var(--primary);
+    border-radius: 50%;
+  }
+  .timeline-item h3 {
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+    color: var(--secondary);
+  }
+  .timeline-item p {
+    font-size: 1rem;
+    color: var(--text);
+  }
+
+  /* Partners */
+  .partners {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 60px;
+  }
+  .partner-logo {
+    max-width: 140px;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: filter 0.3s, opacity 0.3s, transform 0.3s;
+  }
+  .partner-logo:hover,
+  .partner-logo:focus {
+    filter: none;
+    opacity: 1;
+    transform: scale(1.1);
+    outline: none;
+  }
+
+  /* FAQ */
+  .faq {
+    max-width: 700px;
+    margin: 0 auto 60px;
+  }
+  .faq h3 {
+    margin-bottom: 10px;
+    color: var(--primary);
+  }
+  .faq-item {
+    margin-bottom: 20px;
+  }
+
+  /* CTA */
+  .cta {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .cta a {
+    display: inline-block;
+    background-color: var(--primary);
+    color: var(--hover-text);
+    padding: 18px 40px;
+    border-radius: 40px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-decoration: none;
+    box-shadow: 0 0 20px var(--shadow);
+    transition: background-color 0.3s;
+  }
+  .cta a:hover,
+  .cta a:focus {
+    background-color: #36b54a;
+    outline: none;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 30px 20px;
+    background: var(--card-bg);
+    color: #666;
+    font-size: 0.9rem;
+    user-select: none;
+  }
+  footer a {
+    color: var(--primary);
+    text-decoration: none;
+    margin: 0 12px;
+    font-weight: 600;
+  }
+  footer a:hover,
+  footer a:focus {
+    text-decoration: underline;
+    outline: none;
+  }
+
+  /* Team Section */
+  .team {
+    max-width: 1000px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+    text-align: center;
+  }
+  .team-members {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+  }
+  .member {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 20px;
+    max-width: 220px;
+    box-shadow: 0 0 15px var(--shadow);
+    transition: transform 0.3s;
+  }
+  .member:hover,
+  .member:focus-within {
+    transform: translateY(-10px);
+    box-shadow: 0 0 30px var(--primary);
+  }
+  .member img {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+  .member h4 {
+    color: var(--primary);
+    margin-bottom: 6px;
+  }
+  .member p {
+    font-size: 1rem;
+    color: var(--text);
+  }
+
+  /* News & Updates */
+  .news-list {
+    max-width: 900px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+  }
+  .news-item {
+    background: var(--card-bg);
+    padding: 18px 24px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px var(--shadow);
+    transition: box-shadow 0.3s;
+  }
+  .news-item:hover,
+  .news-item:focus-within {
+    box-shadow: 0 0 30px var(--primary);
+  }
+  .news-item h4 {
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+  .news-item p {
+    font-size: 1rem;
+    color: var(--text);
+  }
+  .news-item time {
+    font-size: 0.9rem;
+    color: #aaa;
+    display: block;
+    margin-top: 6px;
+  }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero {
+      flex-direction: column;
+      margin-bottom: 40px;
+    }
+    .hero img {
+      max-width: 180px;
+      margin-bottom: 20px;
+    }
+    .hero-content h1 {
+      font-size: 2.4rem;
+    }
+    h2.section-title {
+      font-size: 2rem;
+    }
+    .team-members {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<nav role="navigation" aria-label="Main navigation">
+  <div class="logo" tabindex="0">DiceCoin (DICE)</div>
+  <ul>
+    <li><a href="#about" tabindex="0">About</a></li>
+    <li><a href="#roadmap" tabindex="0">Roadmap</a></li>
+    <li><a href="#partners" tabindex="0">Partners</a></li>
+    <li><a href="#faq" tabindex="0">FAQ</a></li>
+    <li><a href="#team" tabindex="0">Team</a></li>
+    <li><a href="#news" tabindex="0">News</a></li>
+  </ul>
+  <button class="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle dark/light mode" tabindex="0">
+    🌙 <span class="sr-only">Toggle dark/light mode</span>
+  </button>
+</nav>
+
+<main>
+  <section class="hero" aria-label="DiceCoin introduction">
+    <img src="https://arweave.net/TblxZpwSFSzp62LX_ULvTMTUsVXdGncVHJJYp50zTd8" alt="DiceCoin logo" />
+    <div class="hero-content">
+      <h1>DiceCoin (DICE)</h1>
+      <h2>Your Utility Token for Multi-Platform Dice Gaming & Trading</h2>
+      <p>DiceCoin powers an immersive multi-platform dice game where players can place bets with DICE tokens, earn rewards, and purchase exclusive in-game assets. Leveraging Solana’s blockchain, DICE offers fast, secure, and low-cost transactions, along with tradability on major crypto exchanges.</p>
+    </div>
+  </section>
+
+  <section class="section" id="about" aria-label="About DiceCoin">
+    <h2 class="section-title">Ecosystem & Features</h2>
+    <div class="info-cards" role="list">
+      <article class="card" tabindex="0" role="listitem">
+        <h3>Fast & Low-Cost Transactions</h3>
+        <p>Leveraging Solana’s high throughput to ensure instant and affordable transfers for all users.</p>
+      </article>
+      <article class="card" tabindex="0" role="listitem">
+        <h3>Decentralized Rewards</h3>
+        <p>Earn DICE tokens through gameplay milestones, achievements, and exclusive tournaments.</p>
+      </article>
+      <article class="card" tabindex="0" role="listitem">
+        <h3>In-Game Marketplace</h3>
+        <p>Trade rare dice skins, boosts, and accessories securely using DICE tokens in our marketplace.</p>
+      </article>
+      <article class="card" tabindex="0" role="listitem">
+        <h3>Secure Smart Contracts</h3>
+        <p>Transparent, audited, and tamper-proof contracts powering all betting and reward mechanisms.</p>
+      </article>
+    </div>
+    <div class="tags" aria-label="Tags related to DiceCoin">
+      <span class="tag" tabindex="0">Utility</span>
+      <span class="tag" tabindex="0">Gaming</span>
+      <span class="tag" tabindex="0">Dice</span>
+      <span class="tag" tabindex="0">Blockchain</span>
+      <span class="tag" tabindex="0">Solana</span>
+      <span class="tag" tabindex="0">Crypto</span>
+    </div>
+  </section>
+
+  <section class="section" id="roadmap" aria-label="DiceCoin roadmap">
+    <h2 class="section-title">Roadmap</h2>
+    <div class="roadmap timeline" role="list">
+      <div class="timeline-item" tabindex="0" role="listitem">
+        <h3>Q2 2025 - Token Launch</h3>
+        <p>Official launch of DiceCoin (DICE) on the Solana blockchain and integration into the dice game platform.</p>
+      </div>
+      <div class="timeline-item" tabindex="0" role="listitem">
+        <h3>Q3 2025 - In-Game Beta Release</h3>
+        <p>Release beta version of the multi-platform dice game featuring DiceCoin for betting and rewards.</p>
+      </div>
+      <div class="timeline-item" tabindex="0" role="listitem">
+        <h3>Q4 2025 - Exchange Listings</h3>
+        <p>List DiceCoin on major cryptocurrency exchanges including Binance, FTX, and Coinbase for wider trading accessibility.</p>
+      </div>
+      <div class="timeline-item" tabindex="0" role="listitem">
+        <h3>Q1 2026 - Full Game Release & Expansion</h3>
+        <p>Launch full version of the game with expanded features, tournaments, and cross-platform support (mobile, desktop, web).</p>
+      </div>
+      <div class="timeline-item" tabindex="0" role="listitem">
+        <h3>Q3 2026 - Strategic Partnerships</h3>
+        <p>Establish collaborations with leading gaming studios and DeFi platforms to enhance token utility and adoption.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="partners" aria-label="Partners and exchanges">
+    <h2 class="section-title">Our Partners</h2>
+    <div class="partners" role="list">
+      <img class="partner-logo" src="https://public.bnbstatic.com/20190405/eb2349c3-b2f8-4a93-a286-8f86a62ea9d8.png" alt="Binance logo" role="listitem" tabindex="0" />
+      <img class="partner-logo" src="https://upload.wikimedia.org/wikipedia/en/b/b9/Solana_logo.png" alt="Solana logo" role="listitem" tabindex="0" />
+      <img class="partner-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF6hcTTU1A8Ymi2VldXqCsPkBu_ltAhIKiRg&s" alt="Coinbase logo" role="listitem" tabindex="0" />
+      <img class="partner-logo" src="https://s2.coinmarketcap.com/static/img/coins/200x200/4195.png" alt="FTX logo" role="listitem" tabindex="0" />
+      <img class="partner-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxiwWCpFc4gAmdCBNs4jdn04D0FyVDS8NtmA&s" alt="Uniswap logo" role="listitem" tabindex="0" />
+    </div>
+  </section>
+
+  <section class="section" id="faq" aria-label="Frequently asked questions">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="faq" role="list">
+      <div class="faq-item" tabindex="0" role="listitem">
+        <h3>What is DiceCoin (DICE)?</h3>
+        <p>DiceCoin is a Solana-based utility token designed for gaming, betting, and trading. It’s the core currency used in our multi-platform dice game and is tradable on major exchanges.</p>
+      </div>
+      <div class="faq-item" tabindex="0" role="listitem">
+        <h3>How can I acquire DICE tokens?</h3>
+        <p>You can buy DICE on popular exchanges such as Binance, Coinbase, and FTX, or earn it by participating in in-game activities and tournaments.</p>
+      </div>
+      <div class="faq-item" tabindex="0" role="listitem">
+        <h3>Is DiceCoin secure?</h3>
+        <p>Yes, DiceCoin is built on Solana’s secure blockchain with audited smart contracts ensuring transparent and tamper-proof transactions.</p>
+      </div>
+      <div class="faq-item" tabindex="0" role="listitem">
+        <h3>What platforms support the Dice game?</h3>
+        <p>The Dice game is available on mobile (iOS, Android), desktop (Windows, macOS), and web browsers, providing a seamless gaming experience across devices.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="team" aria-label="Meet the DiceCoin Team">
+    <h2 class="section-title">Our Team</h2>
+    <div class="team-members" role="list">
+      <div class="member" tabindex="0" role="listitem">
+        <img src="https://randomuser.me/api/portraits/men/34.jpg" alt="John Doe - CEO" />
+        <h4>John Doe</h4>
+        <p>CEO & Co-Founder</p>
+      </div>
+      <div class="member" tabindex="0" role="listitem">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jane Smith - CTO" />
+        <h4>Jane Smith</h4>
+        <p>CTO & Blockchain Lead</p>
+      </div>
+      <div class="member" tabindex="0" role="listitem">
+        <img src="https://randomuser.me/api/portraits/men/56.jpg" alt="Michael Lee - Head of Marketing" />
+        <h4>Michael Lee</h4>
+        <p>Head of Marketing</p>
+      </div>
+      <div class="member" tabindex="0" role="listitem">
+        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Sarah Kim - Game Designer" />
+        <h4>Sarah Kim</h4>
+        <p>Game Designer</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="news" aria-label="Latest News and Updates">
+    <h2 class="section-title">News & Updates</h2>
+    <div class="news-list" role="list">
+      <article class="news-item" tabindex="0" role="listitem">
+        <h4>DiceCoin Beta Launch Success</h4>
+        <p>Our multi-platform dice game beta was successfully launched, with thousands of players already engaging and earning DICE tokens.</p>
+        <time datetime="2025-07-15">July 15, 2025</time>
+      </article>
+      <article class="news-item" tabindex="0" role="listitem">
+        <h4>New Exchange Listings Announced</h4>
+        <p>DiceCoin will be listed on Binance, Coinbase, and FTX starting Q4 2025, increasing liquidity and trading volume.</p>
+        <time datetime="2025-09-30">September 30, 2025</time>
+      </article>
+      <article class="news-item" tabindex="0" role="listitem">
+        <h4>Partnership with Leading DeFi Platform</h4>
+        <p>We have established a strategic partnership to integrate DiceCoin into a major DeFi liquidity pool, enhancing token utility.</p>
+        <time datetime="2026-03-10">March 10, 2026</time>
+      </article>
+    </div>
+  </section>
+
+  <section class="cta" aria-label="Call to action to play DiceCoin game">
+    <a href="https://yourdicedapp.com" target="_blank" rel="noopener noreferrer" aria-label="Play DiceCoin Game now" tabindex="0" class="btn-primary">Play Now</a>
+  </section>
+</main>
+
+<footer aria-label="Footer with social media links and legal information">
+  <div class="social-media" role="list" aria-label="Social media links">
+    <a href="https://twitter.com/dicecoin" target="_blank" rel="noopener noreferrer" tabindex="0" aria-label="DiceCoin Twitter"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter logo" /></a>
+    <a href="https://discord.gg/dicecoin" target="_blank" rel="noopener noreferrer" tabindex="0" aria-label="DiceCoin Discord"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord logo" /></a>
+    <a href="https://t.me/dicecoin" target="_blank" rel="noopener noreferrer" tabindex="0" aria-label="DiceCoin Telegram"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram logo" /></a>
+  </div>
+  <p>&copy; 2025 DiceCoin. All rights reserved.</p>
+  <nav aria-label="Footer navigation">
+    <ul>
+      <li><a href="#about" tabindex="0">About</a></li>
+      <li><a href="#roadmap" tabindex="0">Roadmap</a></li>
+      <li><a href="#partners" tabindex="0">Partners</a></li>
+      <li><a href="#faq" tabindex="0">FAQ</a></li>
+      <li><a href="#team" tabindex="0">Team</a></li>
+      <li><a href="#news" tabindex="0">News</a></li>
+    </ul>
+  </nav>
+</footer>  
+
+<!-- Additional Accessibility Enhancements -->
+<script>
+  // Keyboard navigation improvements
+  document.querySelectorAll('a, button, [tabindex="0"]').forEach(el => {
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        el.click();
+      }
+    });
+  });
+
+  // Announce theme changes for screen readers
+  const themeToggle = document.querySelector('.theme-toggle');
+  themeToggle.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.toggle('dark-theme');
+    const message = isDark ? 'Dark mode activated' : 'Light mode activated';
+    const liveRegion = document.createElement('div');
+    liveRegion.setAttribute('role', 'alert');
+    liveRegion.className = 'sr-only';
+    liveRegion.textContent = message;
+    document.body.appendChild(liveRegion);
+    setTimeout(() => liveRegion.remove(), 2000);
+  });
+</script>
+
+<style>
+  /* Visually hidden class for screen readers */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>  
+  
+
+<!-- End of DiceCoin Page -->
